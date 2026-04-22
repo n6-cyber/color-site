@@ -1,6 +1,17 @@
 const container = document.querySelector("#container");
+const btn = document.querySelector("#reset-btn");
+const rgbBtn = document.querySelector('#rgb');
+const btbBtn = document.querySelector('#btb');
 
+let mode = 'black';
 
+rgbBtn.addEventListener("click", () => {
+    mode = 'rgb';
+});
+
+btbBtn.addEventListener("click", () => {
+    mode = 'black';
+});
 
 function createGrid(size) {
 
@@ -20,7 +31,14 @@ function createGrid(size) {
         square.classList.add('square');
 
         square.addEventListener('mouseenter', () => {
-            square.style.backgroundColor = 'black';
+            if (mode == 'rgb') {
+                const r = Math.floor(Math.random() * 256);
+                const g = Math.floor(Math.random() * 256);
+                const b = Math.floor(Math.random() * 256);
+                square.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+            } else {
+                square.style.backgroundColor = 'black';
+            }
         });
 
         square.style.width = `${100 / size}%`;
@@ -29,8 +47,6 @@ function createGrid(size) {
         container.appendChild(square);
     }
 }
-
-const btn = document.querySelector("#reset-btn");
 
 btn.addEventListener("click", () => {
     let userInput = prompt("Enter grid size (1-100) max: ");
